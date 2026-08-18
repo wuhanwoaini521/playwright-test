@@ -4,13 +4,12 @@ verify_ssl = true
 name = "pypi"
 trusted-host = "mirrors.aliyun.com"
 
-[install] # 信任来源
-trusted-host = "mirrors.aliyun.com"
-
-
 [packages]
+playwright = "*"
+pytest = "*"
+pytest-playwright = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.12"

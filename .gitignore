@@ -1,0 +1,27 @@
+# Python 🐍
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE 💻
+.idea/
+.vscode/
+*.iml
+
+# 测试产物 🧪
+test-results/
+playwright-report/
+blob-report/
+*.png
+*.jpg
+*.jpeg
+
+# 系统文件 🖥️
+.DS_Store
+Thumbs.db
+
+# 环境变量 🔐
+.env
