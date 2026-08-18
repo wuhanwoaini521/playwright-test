@@ -1,0 +1,16 @@
+[project]
+name = "playwright-test"
+version = "0.1.0"
+description = "基于 Python Playwright + pytest 的浏览器 UI 自动化测试示例 🎭"
+requires-python = ">=3.9"
+dependencies = [
+    "playwright>=1.45",
+    "pytest>=8.0",
+    "pytest-playwright>=0.5",
+]
+
+[dependency-groups]
+dev = []
+
+[tool.uv]
+package = false
