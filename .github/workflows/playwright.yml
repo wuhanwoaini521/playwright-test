@@ -19,16 +19,16 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install pipenv 📦
-        run: pip install pipenv
+      - name: Install uv 📦
+        run: pip install uv
 
       - name: Install dependencies 🧰
         run: |
-          pipenv install --dev
-          pipenv run playwright install --with-deps chromium
+          uv sync --python 3.12
+          uv run playwright install --with-deps chromium
 
       - name: Run Playwright tests 🧪
-        run: pipenv run pytest --browser=chromium --tracing=retain-on-failure
+        run: uv run pytest --browser=chromium --tracing=retain-on-failure
 
       - name: Upload test report 📤
         if: failure()

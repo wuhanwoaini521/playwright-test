@@ -30,27 +30,26 @@
 git clone https://github.com/wuhanwoaini521/playwright-test.git
 cd playwright-test
 
-# 安装 pipenv 与依赖
-pip install pipenv
-pipenv install --dev
+# 使用 uv 安装依赖（自动创建 .venv）
+uv sync
 
 # 安装 Chromium 浏览器
-pipenv run playwright install chromium
+uv run playwright install chromium
 ```
 
-> 💡 不想用 pipenv？直接用 `pip install -r requirements.txt` 也可以。
+> 💡 依赖管理统一使用 **uv**。详细用法见 [uv 官方文档](https://docs.astral.sh/uv/)。
 
 ## 🚀 运行测试
 
 ```bash
 # 运行全部测试
-pipenv run pytest --browser=chromium
+uv run pytest --browser=chromium
 
 # 运行并保留失败日志
-pipenv run pytest --browser=chromium --tracing=retain-on-failure
+uv run pytest --browser=chromium --tracing=retain-on-failure
 
 # 只运行某个文件
-pipenv run pytest test_example.py
+uv run pytest test_example.py
 ```
 
 ## 📁 项目结构
@@ -60,8 +59,8 @@ playwright-test/
 ├── .github/
 │   └── workflows/
 │       └── playwright.yml   # GitHub Actions CI 配置
-├── Pipfile                  # pipenv 依赖管理
-├── requirements.txt         # pip 依赖清单
+├── pyproject.toml           # uv 依赖管理
+├── uv.lock                  # uv 锁定的依赖版本
 ├── test_example.py          # pytest UI 测试示例
 └── codegen_test.py          # codegen 录制的交互脚本
 ```
