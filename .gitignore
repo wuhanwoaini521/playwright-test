@@ -5,6 +5,7 @@ __pycache__/
 .venv/
 venv/
 env/
+.pytest_cache/
 
 # IDE 💻
 .idea/
@@ -15,9 +16,19 @@ env/
 test-results/
 playwright-report/
 blob-report/
+allure-results/
+allure-report/
+coverage/
+htmlcov/
+.coverage
+*.xml
+
+# 截图与日志 📸
 *.png
 *.jpg
 *.jpeg
+*.zip
+*.log
 
 # 系统文件 🖥️
 .DS_Store

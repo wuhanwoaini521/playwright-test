@@ -1,16 +1,52 @@
 [project]
 name = "playwright-test"
-version = "0.1.0"
-description = "基于 Python Playwright + pytest 的浏览器 UI 自动化测试示例 🎭"
+version = "1.0.0"
+description = "基于 Python Playwright + pytest 的企业级 UI 自动化测试框架 🎭"
+readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
     "playwright>=1.45",
     "pytest>=8.0",
     "pytest-playwright>=0.5",
+    "pytest-xdist>=3.5",
+    "pytest-rerunfailures>=14.0",
+    "pytest-sugar>=1.0",
+    "allure-pytest>=2.13",
+    "allure-python-commons>=2.13",
 ]
 
 [dependency-groups]
-dev = []
+dev = [
+    "ruff>=0.4",
+]
 
 [tool.uv]
 package = false
+
+[project.scripts]
+pw-test = "tests.main:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "--browser=chromium",
+    "--tracing=retain-on-failure",
+    "--maxfail=5",
+    "-m=not slow",
+    "--alluredir=allure-results",
+    "--clean-alluredir",
+]
+markers = [
+    "smoke: 冒烟测试，快速验证核心主链路",
+    "regression: 回归测试，覆盖完整功能",
+    "slow: 慢速测试（标记后可单独跳过或分片）",
+]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 120
+src = ["config", "pages", "locators", "utils", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "S"]
+ignore = ["S101"]  # assert 在测试中允许
