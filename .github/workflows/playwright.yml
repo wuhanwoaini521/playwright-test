@@ -1,14 +1,20 @@
 name: Playwright Tests 🎭
 
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-  # 定时回归：每天 UTC 02:00
-  schedule:
-    - cron: '0 2 * * *'
+  # 🔧 demo 阶段仅手动触发（避免频繁自动执行浪费资源）。
+  # 本地 / PR 验证请使用: uv run pytest
   workflow_dispatch:
+    inputs:
+      browser:
+        description: '选择要运行的浏览器'
+        required: true
+        default: 'chromium'
+        type: choice
+        options:
+          - chromium
+          - firefox
+          - webkit
+          - all  # 全部浏览器
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,11 +22,11 @@ concurrency:
 
 jobs:
   test:
-    # 多浏览器矩阵并行
+    # 多浏览器（选择 all 时运行全部浏览器）
     strategy:
       fail-fast: false
       matrix:
-        browser: [ chromium, firefox, webkit ]
+        browser: ${{ fromJson(github.event.inputs.browser == 'all' && '["chromium","firefox","webkit"]' || format('["{0}"]', github.event.inputs.browser)) }}
     runs-on: ubuntu-latest
 
     steps:
